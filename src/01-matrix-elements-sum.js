@@ -15,20 +15,17 @@
  * The result should be 9
  */
 function getMatrixElementsSum(matrix) {
-  let res = 0;
-  matrix.reduce((acc, el, index, arr) => {
+  return matrix.reduce((acc, el, index, arr) => {
     if (index === 0) {
-      el.forEach((elem) => { res += elem; });
-    } else {
-      el.forEach((elem, ind) => {
-        if (arr[index - 1][ind] !== 0) {
-          res += elem;
-        }
-      });
+      return el.reduce((a, elem) => a + elem, 0);
     }
-    return acc;
+    return acc + el.reduce((a, elem, ind) => {
+      if (arr[index - 1][ind] !== 0) {
+        return a + elem;
+      }
+      return a;
+    }, 0);
   }, 0);
-  return res;
 }
 
 module.exports = getMatrixElementsSum;
